@@ -1,4 +1,6 @@
-flaggame
+Le World Games
 ========
 
-A Symfony project created on September 5, 2017, 9:51 pm.
+Just an open source project for practicing techniques and improve development skills.
+
+My plan is to put a live demo online somewhere in a short while.
