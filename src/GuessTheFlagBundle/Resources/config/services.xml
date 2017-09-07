@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="guesstheflag.crawler.wiki_flag_crawler_strategy" class="GuessTheFlagBundle\Crawler\Image\Strategy\WikiFlagCrawlerStrategy">
+        </service>
+        <service id="guesstheflag.crawler.image_downloader" class="GuessTheFlagBundle\Crawler\Image\ImageDownloader">
+        </service>
+        <service id="guesstheflag.crawler.image_crawler" class="GuessTheFlagBundle\Crawler\Image\ImageCrawler">
+            <argument type="service" id="guesstheflag.crawler.image_downloader" />
+            <argument type="service" id="guesstheflag.crawler.wiki_flag_crawler_strategy" />
+        </service>
+    </services>
+</container>
