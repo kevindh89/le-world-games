@@ -3,6 +3,8 @@ Le World Games
 
 Just an open source project for practicing techniques and improve development skills.
 
+[![Build Status](https://travis-ci.org/kevindh89/le-world-games.svg?branch=master)](https://travis-ci.org/kevindh89/le-world-games)
+
 My plan is to put a live demo online somewhere in a short while.
 
 # Project ideas
