@@ -1,6 +1,5 @@
 <?php
 
-declare(strict_types=1);
 /*
  * This file is part of the Symfony package.
  *
@@ -45,7 +44,7 @@ class Requirement
      * @param bool        $fulfilled   Whether the requirement is fulfilled
      * @param string      $testMessage The message for testing the requirement
      * @param string      $helpHtml    The help text formatted in HTML for resolving the problem
-     * @param null|string $helpText    The help text (when null, it will be inferred from $helpHtml, i.e. stripped from HTML tags)
+     * @param string|null $helpText    The help text (when null, it will be inferred from $helpHtml, i.e. stripped from HTML tags)
      * @param bool        $optional    Whether this is only an optional recommendation not a mandatory requirement
      */
     public function __construct($fulfilled, $testMessage, $helpHtml, $helpText = null, $optional = false)
@@ -124,9 +123,9 @@ class PhpIniRequirement extends Requirement
      * @param bool          $approveCfgAbsence If true the Requirement will be fulfilled even if the configuration option does not exist, i.e. ini_get() returns false.
      *                                         This is helpful for abandoned configs in later PHP versions or configs of an optional extension, like Suhosin.
      *                                         Example: You require a config to be true but PHP later removes this config and defaults it to true internally.
-     * @param null|string   $testMessage       The message for testing the requirement (when null and $evaluation is a boolean a default message is derived)
-     * @param null|string   $helpHtml          The help text formatted in HTML for resolving the problem (when null and $evaluation is a boolean a default help is derived)
-     * @param null|string   $helpText          The help text (when null, it will be inferred from $helpHtml, i.e. stripped from HTML tags)
+     * @param string|null   $testMessage       The message for testing the requirement (when null and $evaluation is a boolean a default message is derived)
+     * @param string|null   $helpHtml          The help text formatted in HTML for resolving the problem (when null and $evaluation is a boolean a default help is derived)
+     * @param string|null   $helpText          The help text (when null, it will be inferred from $helpHtml, i.e. stripped from HTML tags)
      * @param bool          $optional          Whether this is only an optional recommendation not a mandatory requirement
      */
     public function __construct($cfgName, $evaluation, $approveCfgAbsence = false, $testMessage = null, $helpHtml = null, $helpText = null, $optional = false)
@@ -141,8 +140,7 @@ class PhpIniRequirement extends Requirement
             $fulfilled = call_user_func($evaluation, $cfgValue);
         } else {
             if (null === $testMessage) {
-                $testMessage = sprintf(
-                    '%s %s be %s in php.ini',
+                $testMessage = sprintf('%s %s be %s in php.ini',
                     $cfgName,
                     $optional ? 'should' : 'must',
                     $evaluation ? 'enabled' : 'disabled'
@@ -150,14 +148,13 @@ class PhpIniRequirement extends Requirement
             }
 
             if (null === $helpHtml) {
-                $helpHtml = sprintf(
-                    'Set <strong>%s</strong> to <strong>%s</strong> in php.ini<a href="#phpini">*</a>.',
+                $helpHtml = sprintf('Set <strong>%s</strong> to <strong>%s</strong> in php.ini<a href="#phpini">*</a>.',
                     $cfgName,
                     $evaluation ? 'on' : 'off'
                 );
             }
 
-            $fulfilled = $evaluation === $cfgValue;
+            $fulfilled = $evaluation == $cfgValue;
         }
 
         parent::__construct($fulfilled || ($approveCfgAbsence && false === $cfgValue), $testMessage, $helpHtml, $helpText, $optional);
@@ -174,7 +171,7 @@ class RequirementCollection implements IteratorAggregate
     /**
      * @var Requirement[]
      */
-    private $requirements = [];
+    private $requirements = array();
 
     /**
      * Gets the current RequirementCollection as an Iterator.
@@ -202,7 +199,7 @@ class RequirementCollection implements IteratorAggregate
      * @param bool        $fulfilled   Whether the requirement is fulfilled
      * @param string      $testMessage The message for testing the requirement
      * @param string      $helpHtml    The help text formatted in HTML for resolving the problem
-     * @param null|string $helpText    The help text (when null, it will be inferred from $helpHtml, i.e. stripped from HTML tags)
+     * @param string|null $helpText    The help text (when null, it will be inferred from $helpHtml, i.e. stripped from HTML tags)
      */
     public function addRequirement($fulfilled, $testMessage, $helpHtml, $helpText = null)
     {
@@ -215,7 +212,7 @@ class RequirementCollection implements IteratorAggregate
      * @param bool        $fulfilled   Whether the recommendation is fulfilled
      * @param string      $testMessage The message for testing the recommendation
      * @param string      $helpHtml    The help text formatted in HTML for resolving the problem
-     * @param null|string $helpText    The help text (when null, it will be inferred from $helpHtml, i.e. stripped from HTML tags)
+     * @param string|null $helpText    The help text (when null, it will be inferred from $helpHtml, i.e. stripped from HTML tags)
      */
     public function addRecommendation($fulfilled, $testMessage, $helpHtml, $helpText = null)
     {
@@ -233,7 +230,7 @@ class RequirementCollection implements IteratorAggregate
      *                                         Example: You require a config to be true but PHP later removes this config and defaults it to true internally.
      * @param string        $testMessage       The message for testing the requirement (when null and $evaluation is a boolean a default message is derived)
      * @param string        $helpHtml          The help text formatted in HTML for resolving the problem (when null and $evaluation is a boolean a default help is derived)
-     * @param null|string   $helpText          The help text (when null, it will be inferred from $helpHtml, i.e. stripped from HTML tags)
+     * @param string|null   $helpText          The help text (when null, it will be inferred from $helpHtml, i.e. stripped from HTML tags)
      */
     public function addPhpIniRequirement($cfgName, $evaluation, $approveCfgAbsence = false, $testMessage = null, $helpHtml = null, $helpText = null)
     {
@@ -251,7 +248,7 @@ class RequirementCollection implements IteratorAggregate
      *                                         Example: You require a config to be true but PHP later removes this config and defaults it to true internally.
      * @param string        $testMessage       The message for testing the requirement (when null and $evaluation is a boolean a default message is derived)
      * @param string        $helpHtml          The help text formatted in HTML for resolving the problem (when null and $evaluation is a boolean a default help is derived)
-     * @param null|string   $helpText          The help text (when null, it will be inferred from $helpHtml, i.e. stripped from HTML tags)
+     * @param string|null   $helpText          The help text (when null, it will be inferred from $helpHtml, i.e. stripped from HTML tags)
      */
     public function addPhpIniRecommendation($cfgName, $evaluation, $approveCfgAbsence = false, $testMessage = null, $helpHtml = null, $helpText = null)
     {
@@ -285,7 +282,7 @@ class RequirementCollection implements IteratorAggregate
      */
     public function getRequirements()
     {
-        $array = [];
+        $array = array();
         foreach ($this->requirements as $req) {
             if (!$req->isOptional()) {
                 $array[] = $req;
@@ -302,7 +299,7 @@ class RequirementCollection implements IteratorAggregate
      */
     public function getFailedRequirements()
     {
-        $array = [];
+        $array = array();
         foreach ($this->requirements as $req) {
             if (!$req->isFulfilled() && !$req->isOptional()) {
                 $array[] = $req;
@@ -319,7 +316,7 @@ class RequirementCollection implements IteratorAggregate
      */
     public function getRecommendations()
     {
-        $array = [];
+        $array = array();
         foreach ($this->requirements as $req) {
             if ($req->isOptional()) {
                 $array[] = $req;
@@ -336,7 +333,7 @@ class RequirementCollection implements IteratorAggregate
      */
     public function getFailedRecommendations()
     {
-        $array = [];
+        $array = array();
         foreach ($this->requirements as $req) {
             if (!$req->isFulfilled() && $req->isOptional()) {
                 $array[] = $req;
@@ -365,7 +362,7 @@ class RequirementCollection implements IteratorAggregate
     /**
      * Returns the PHP configuration file (php.ini) path.
      *
-     * @return false|string php.ini file path
+     * @return string|false php.ini file path
      */
     public function getPhpIniConfigPath()
     {
@@ -390,9 +387,9 @@ class SymfonyRequirements extends RequirementCollection
      */
     public function __construct()
     {
-        // mandatory requirements follow
+        /* mandatory requirements follow */
 
-        $installedPhpVersion = PHP_VERSION;
+        $installedPhpVersion = phpversion();
         $requiredPhpVersion = $this->getPhpRequiredVersion();
 
         $this->addRecommendation(
@@ -406,12 +403,9 @@ class SymfonyRequirements extends RequirementCollection
             $this->addRequirement(
                 version_compare($installedPhpVersion, $requiredPhpVersion, '>='),
                 sprintf('PHP version must be at least %s (%s installed)', $requiredPhpVersion, $installedPhpVersion),
-                sprintf(
-                    'You are running PHP version "<strong>%s</strong>", but Symfony needs at least PHP "<strong>%s</strong>" to run.
+                sprintf('You are running PHP version "<strong>%s</strong>", but Symfony needs at least PHP "<strong>%s</strong>" to run.
                 Before using Symfony, upgrade your PHP installation, preferably to the latest version.',
-                    $installedPhpVersion,
-                    $requiredPhpVersion
-                ),
+                    $installedPhpVersion, $requiredPhpVersion),
                 sprintf('Install PHP %s or newer (installed version is %s)', $requiredPhpVersion, $installedPhpVersion)
             );
         }
@@ -447,16 +441,14 @@ class SymfonyRequirements extends RequirementCollection
 
         if (version_compare($installedPhpVersion, '7.0.0', '<')) {
             $this->addPhpIniRequirement(
-                'date.timezone',
-                true,
-                false,
+                'date.timezone', true, false,
                 'date.timezone setting must be set',
                 'Set the "<strong>date.timezone</strong>" setting in php.ini<a href="#phpini">*</a> (like Europe/Paris).'
             );
         }
 
         if (false !== $requiredPhpVersion && version_compare($installedPhpVersion, $requiredPhpVersion, '>=')) {
-            $timezones = [];
+            $timezones = array();
             foreach (DateTimeZone::listAbbreviations() as $abbreviations) {
                 foreach ($abbreviations as $abbreviation) {
                     $timezones[$abbreviation['timezone_id']] = true;
@@ -536,15 +528,11 @@ class SymfonyRequirements extends RequirementCollection
 
         if (extension_loaded('xdebug')) {
             $this->addPhpIniRequirement(
-                'xdebug.show_exception_trace',
-                false,
-                true
+                'xdebug.show_exception_trace', false, true
             );
 
             $this->addPhpIniRequirement(
-                'xdebug.scream',
-                false,
-                true
+                'xdebug.scream', false, true
             );
 
             $this->addPhpIniRecommendation(
@@ -574,7 +562,7 @@ class SymfonyRequirements extends RequirementCollection
             );
         }
 
-        // optional recommendations follow
+        /* optional recommendations follow */
 
         if (file_exists(__DIR__.'/../vendor/composer')) {
             require_once __DIR__.'/../vendor/autoload.php';
@@ -806,7 +794,7 @@ class SymfonyRequirements extends RequirementCollection
     /**
      * Defines PHP required version from Symfony version.
      *
-     * @return false|string The PHP required version or false if it could not be guessed
+     * @return string|false The PHP required version or false if it could not be guessed
      */
     protected function getPhpRequiredVersion()
     {
