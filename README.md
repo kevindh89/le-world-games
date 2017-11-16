@@ -19,3 +19,12 @@ My plan is to put a live demo online somewhere in a short while.
 * Use GraphQL as database
 * Setup performance and error monitoring (i.e. with Blackfire.io, Airbrake, Rollbar)
 * Get well known with and setup packages like Snyk (for finding security vulnerabilities)
+
+# Setup development environment
+
+Run a local webserver:
+```
+php bin/console server:run
+```
+
+The application is now available on: http://localhost:8000
