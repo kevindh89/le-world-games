@@ -10,12 +10,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class HomeController extends Controller
 {
     /**
-     * @Route("/home")
+     * @Route("/")
      */
     public function homeAction()
     {
+        $randomFlags = $this->getDoctrine()
+            ->getRepository('GuessTheFlagBundle:Flag')
+            ->getRandomFlags(4);
+
         return $this->render('GuessTheFlagBundle:Home:home.html.twig', [
-            // ...
+            'randomFlags' => $randomFlags,
         ]);
     }
 }

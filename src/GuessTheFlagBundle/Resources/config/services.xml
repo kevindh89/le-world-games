@@ -6,6 +6,7 @@
 
     <services>
         <service id="guesstheflag.crawler.wiki_flag_crawler_strategy" class="GuessTheFlagBundle\Crawler\Image\Strategy\WikiFlagCrawlerStrategy">
+            <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
         <service id="guesstheflag.crawler.image_downloader" class="GuessTheFlagBundle\Crawler\Image\ImageDownloader">
         </service>

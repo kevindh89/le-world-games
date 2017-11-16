@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace GuessTheFlagBundle\Crawler\Image\Strategy;
 
+use Doctrine\ORM\EntityManager;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -29,7 +30,15 @@ HTML;
             'https://www.google.nl/images/test3.jpg',
         ];
 
-        $crawler = new WikiFlagCrawlerStrategy();
+        $em = $this->getMockBuilder(EntityManager::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $em->expects($this->any())
+            ->method('persist');
+        $em->expects($this->once())
+            ->method('flush');
+
+        $crawler = new WikiFlagCrawlerStrategy($em);
         $result = $crawler->crawlImages($html);
 
         $this->assertSame($images, $result);

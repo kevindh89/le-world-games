@@ -3,5 +3,13 @@
 {% block title %}GuessTheFlagBundle:Home:home{% endblock %}
 
 {% block body %}
-<h1>Welcome to the Home:home page</h1>
+    <h1>Welcome to the Flag game</h1>
+
+    <ul>
+        {% for flag in randomFlags %}
+            <li>
+                <img src="{{ flag.image }}" />
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}
