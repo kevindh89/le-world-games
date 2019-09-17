@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <ul>
+    {% for flag in flags %}
+        <li><a href="{{ path('edit', {'id': flag.id}) }}"><img src="{{ flag.image }}" /></a></li>
+    {% endfor %}
+    </ul>
+{% endblock %}

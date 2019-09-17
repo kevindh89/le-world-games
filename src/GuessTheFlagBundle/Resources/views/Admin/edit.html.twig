@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <form method="post">
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary">Opslaan</button>
+        <a href="{{ path('overview') }}" class="btn btn-default">Terug</a>
+    </form>
+{% endblock %}

@@ -21,3 +21,9 @@ services:
         # you can exclude directories or files
         # but if a service is unused, it's removed anyway
         exclude: '../../src/GuessTheFlagBundle/{Entity,Repository,Tests}'
+
+    GuessTheFlagBundle\Repository\FlagRepository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - GuessTheFlagBundle\Entity\Flag
