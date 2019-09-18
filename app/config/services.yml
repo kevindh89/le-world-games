@@ -27,3 +27,7 @@ services:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
             - GuessTheFlagBundle\Entity\Flag
+
+    GuessTheFlagBundle\Form\Extension\ImageTypeExtension:
+        tags:
+            - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\TextType }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace GuessTheFlagBundle\Controller;
 
 use GuessTheFlagBundle\Entity\Flag;
+use GuessTheFlagBundle\Form\ContinentType;
 use GuessTheFlagBundle\Repository\FlagRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -42,7 +43,8 @@ class AdminController extends Controller
 
         $form = $this->createFormBuilder($flag)
             ->add('country', TextType::class)
-            ->add('image', TextType::class)
+            ->add('image', TextType::class, ['image_property' => 'image'])
+            ->add('continent', ContinentType::class)
             ->getForm();
 
         if ($request->isMethod('get')) {

@@ -38,60 +38,42 @@ class Flag
     private $image;
 
     /**
-     * Get id.
-     *
-     * @return int
+     * @ORM\Column(name="continent", type="string")
      */
-    public function getId()
+    private $continent;
+
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * Set country.
-     *
-     * @param string $country
-     *
-     * @return Flag
-     */
-    public function setCountry($country)
+    public function setCountry(string $country): void
     {
         $this->country = $country;
-
-        return $this;
     }
 
-    /**
-     * Get country.
-     *
-     * @return string
-     */
-    public function getCountry()
+    public function getCountry(): string
     {
         return $this->country;
     }
 
-    /**
-     * Set image.
-     *
-     * @param string $image
-     *
-     * @return Flag
-     */
-    public function setImage($image)
+    public function setImage(string $image): void
     {
         $this->image = $image;
-
-        return $this;
     }
 
-    /**
-     * Get image.
-     *
-     * @return string
-     */
-    public function getImage()
+    public function getImage(): string
     {
         return $this->image;
+    }
+
+    public function getContinent(): string
+    {
+        return $this->continent;
+    }
+
+    public function setContinent(string $continent): void
+    {
+        $this->continent = $continent;
     }
 }
