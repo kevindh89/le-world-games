@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace GuessTheFlagBundle\Controller;
 
 use GuessTheFlagBundle\Entity\Flag;
-use GuessTheFlagBundle\Form\ContinentType;
+use GuessTheFlagBundle\Form\FlagType;
 use GuessTheFlagBundle\Repository\FlagRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -41,11 +40,7 @@ class AdminController extends Controller
         /** @var Flag $flag */
         $flag = $this->flagRepository->find($id);
 
-        $form = $this->createFormBuilder($flag)
-            ->add('country', TextType::class)
-            ->add('image', TextType::class, ['image_property' => 'image'])
-            ->add('continent', ContinentType::class)
-            ->getForm();
+        $form = $this->createForm(FlagType::class, $flag);
 
         if ($request->isMethod('get')) {
             return $this->render('GuessTheFlagBundle:Admin:edit.html.twig', [

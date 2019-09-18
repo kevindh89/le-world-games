@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace GuessTheFlagBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Flag.
@@ -15,8 +16,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Flag
 {
     /**
-     * @var int
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -24,15 +23,12 @@ class Flag
     private $id;
 
     /**
-     * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="country", type="string", length=255)
      */
     private $country;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="image", type="text")
      */
     private $image;
@@ -41,6 +37,12 @@ class Flag
      * @ORM\Column(name="continent", type="string")
      */
     private $continent;
+
+    /**
+     * @Assert\IsFalse(groups={"non-eu"})
+     * @ORM\Column(name="is_eu", type="boolean")
+     */
+    private $isEu;
 
     public function getId(): int
     {
@@ -75,5 +77,15 @@ class Flag
     public function setContinent(string $continent): void
     {
         $this->continent = $continent;
+    }
+
+    public function getisEu(): bool
+    {
+        return $this->isEu;
+    }
+
+    public function setIsEu(bool $isEu): void
+    {
+        $this->isEu = $isEu;
     }
 }
