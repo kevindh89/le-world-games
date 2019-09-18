@@ -21,6 +21,7 @@ class FlagType extends AbstractType
             ->add('image', TextType::class, ['image_property' => 'image'])
             ->add('continent', ContinentType::class)
             ->add('isEu', CheckboxType::class, ['required' => false, 'label' => 'Is in European Union?'])
+            ->add('colors', FlagColorsType::class)
         ;
     }
 

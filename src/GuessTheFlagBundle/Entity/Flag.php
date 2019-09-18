@@ -39,6 +39,11 @@ class Flag
     private $continent;
 
     /**
+     * @ORM\Column(name="colors", type="json_array")
+     */
+    private $colors;
+
+    /**
      * @Assert\IsFalse(groups={"non-eu"})
      * @ORM\Column(name="is_eu", type="boolean")
      */
@@ -87,5 +92,15 @@ class Flag
     public function setIsEu(bool $isEu): void
     {
         $this->isEu = $isEu;
+    }
+
+    public function getColors(): ?array
+    {
+        return $this->colors;
+    }
+
+    public function setColors(array $colors): void
+    {
+        $this->colors = $colors;
     }
 }
