@@ -6,6 +6,7 @@ namespace GuessTheFlagBundle\Form;
 
 use GuessTheFlagBundle\Entity\Flag;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,7 +23,18 @@ class FlagType extends AbstractType
             ->add('continent', ContinentType::class)
             ->add('isEu', CheckboxType::class, ['required' => false, 'label' => 'Is in European Union?'])
             ->add('colors', FlagColorsType::class)
+            ->add('cities', TextType::class)
         ;
+
+        $builder->get('cities')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($tagsArray) {
+                    return implode(', ', $tagsArray);
+                },
+                function ($tagsString) {
+                    return explode(', ', $tagsString);
+                }
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

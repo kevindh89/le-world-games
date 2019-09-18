@@ -49,6 +49,11 @@ class Flag
      */
     private $isEu;
 
+    /**
+     * @ORM\Column(name="cities", type="json_array")
+     */
+    private $cities;
+
     public function getId(): int
     {
         return $this->id;
@@ -102,5 +107,15 @@ class Flag
     public function setColors(array $colors): void
     {
         $this->colors = $colors;
+    }
+
+    public function getCities(): array
+    {
+        return $this->cities ?: [];
+    }
+
+    public function setCities($cities): void
+    {
+        $this->cities = $cities;
     }
 }
