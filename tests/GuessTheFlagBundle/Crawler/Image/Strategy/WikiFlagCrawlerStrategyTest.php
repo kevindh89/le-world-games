@@ -19,9 +19,9 @@ class WikiFlagCrawlerStrategyTest extends TestCase
     {
         $html = <<<'HTML'
 <html><body>
-<img class="thumbborder" src="//www.google.nl/images/test1.jpg"/>
-<img src="//www.google.nl/images/test2.jpg"/>
-<img class="thumbborder" src="//www.google.nl/images/test3.jpg"/>
+<a class="image"><img class="thumbborder" src="//www.google.nl/images/test1.jpg"/></a>
+<a class="non-image"><img src="//www.google.nl/images/test2.jpg"/></a>
+<a class="image"><img class="thumbborder" src="//www.google.nl/images/test3.jpg"/></a>
 </body></html>
 HTML;
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace GuessTheFlagBundle\Crawler\Image;
 
-use GuessTheFlagBundle\Crawler\Image\Strategy\ImageCrawlerStrategy;
+use GuessTheFlagBundle\Crawler\Image\Strategy\WikiFlagCrawlerStrategy;
 use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
 
@@ -24,7 +24,8 @@ class ImageCrawlerTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->crawlerStrategy = $this->getMockBuilder(ImageCrawlerStrategy::class)
+        $this->crawlerStrategy = $this->getMockBuilder(WikiFlagCrawlerStrategy::class)
+            ->disableOriginalConstructor()
             ->getMock();
 
         $this->logger = $this->getMockBuilder(Logger::class)

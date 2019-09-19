@@ -22,12 +22,16 @@ class WikiFlagCrawlerStrategy implements ImageCrawlerStrategy
         $crawler = new Crawler($html);
         $images = [];
 
-        $crawler->filter('img.thumbborder')->each(function (Crawler $node, $i) use (&$images) {
+        $crawler->filter('a.image img')->each(function (Crawler $node, $i) use (&$images) {
             $image = 'https:'.$node->attr('src');
 
             $flag = new Flag();
             $flag->setCountry('...');
             $flag->setImage($image);
+            $flag->setContinent('');
+            $flag->setColors([]);
+            $flag->setIsEu(false);
+            $flag->setCities([]);
 
             $this->entityManager->persist($flag);
 
