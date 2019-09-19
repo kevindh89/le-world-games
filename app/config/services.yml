@@ -31,3 +31,8 @@ services:
     GuessTheFlagBundle\Form\Extension\ImageTypeExtension:
         tags:
             - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\TextType }
+
+    GuessTheFlagBundle\Controller\ExceptionController:
+        public: true
+        arguments:
+            $debug: '%kernel.debug%'
