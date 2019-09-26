@@ -3,7 +3,10 @@
 {% block body %}
     <div>
         <a class="btn btn-default" href="{{ path('home') }}">Home</a>
-        <a class="btn btn-danger" href="{{ path('logout') }}">Logout</a>
+        <form method="post" action="{{ path('logout') }}">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('logout') }}">
+            <button type="submit" class="btn btn-danger">Logout</button>
+        </form>
     </div>
 
     <ul>
