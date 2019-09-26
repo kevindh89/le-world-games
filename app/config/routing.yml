@@ -1,3 +1,6 @@
 app:
     resource: '@GuessTheFlagBundle/Controller/'
     type: annotation
+
+logout:
+    path: /logout

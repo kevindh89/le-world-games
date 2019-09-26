@@ -1,9 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <div>
+        <a class="btn btn-default" href="{{ path('home') }}">Home</a>
+        <a class="btn btn-danger" href="{{ path('logout') }}">Logout</a>
+    </div>
+
     <ul>
     {% for flag in flags %}
-        <li><a href="{{ path('edit', {'id': flag.id}) }}"><img src="{{ flag.image }}" /></a></li>
+        <li><a href="{{ path('admin_edit', {'id': flag.id}) }}"><img src="{{ flag.image }}" /></a></li>
     {% endfor %}
     </ul>
 {% endblock %}
