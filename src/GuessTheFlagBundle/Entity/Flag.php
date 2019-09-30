@@ -54,6 +54,11 @@ class Flag
      */
     private $cities;
 
+    /**
+     * @ORM\Column(name="photo", type="string")
+     */
+    private $photo;
+
     public function getId(): int
     {
         return $this->id;
@@ -117,5 +122,15 @@ class Flag
     public function setCities($cities): void
     {
         $this->cities = $cities;
+    }
+
+    public function getPhoto(): string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(string $photo): void
+    {
+        $this->photo = $photo;
     }
 }

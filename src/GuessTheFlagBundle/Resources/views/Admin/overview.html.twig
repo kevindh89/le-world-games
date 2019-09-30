@@ -11,7 +11,12 @@
 
     <ul>
     {% for flag in flags %}
-        <li><a href="{{ path('admin_edit', {'id': flag.id}) }}"><img src="{{ flag.image }}" /></a></li>
+        <li>
+            <a href="{{ path('admin_edit', {'id': flag.id}) }}">
+                <strong>{{ flag.country }}</strong>
+                <img src="{{ flag.image }}" alt="Flag" />
+            </a>
+        </li>
     {% endfor %}
     </ul>
 {% endblock %}

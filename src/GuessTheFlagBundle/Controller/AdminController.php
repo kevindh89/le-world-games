@@ -8,6 +8,7 @@ use GuessTheFlagBundle\Entity\Flag;
 use GuessTheFlagBundle\Form\FlagType;
 use GuessTheFlagBundle\Repository\FlagRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -52,9 +53,18 @@ class AdminController extends Controller
         }
 
         if ($form->handleRequest($request) && $form->isValid()) {
+            /** @var UploadedFile $photo */
+            $photo = $form['photoFile']->getData();
+
+            if ($photo) {
+                $filename = mt_rand(1, 999999).'-'.uniqid().'.'.$photo->guessExtension();
+                $photo->move($this->getParameter('photo_directory'), $filename);
+                $flag->setPhoto($filename);
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirect($this->generateUrl('overview'));
+            return $this->redirect($this->generateUrl('admin_overview'));
         }
 
         return $this->render('GuessTheFlagBundle:Admin:edit.html.twig', [

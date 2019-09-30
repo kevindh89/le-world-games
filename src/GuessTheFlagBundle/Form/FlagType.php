@@ -8,6 +8,7 @@ use GuessTheFlagBundle\Entity\Flag;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -23,7 +24,8 @@ class FlagType extends AbstractType
             ->add('continent', ContinentType::class)
             ->add('isEu', CheckboxType::class, ['required' => false, 'label' => 'Is in European Union?'])
             ->add('colors', FlagColorsType::class)
-            ->add('cities', TextType::class)
+            ->add('cities', TextType::class, ['required' => false])
+            ->add('photoFile', FileType::class, ['mapped' => false, 'required' => false])
         ;
 
         $builder->get('cities')
@@ -32,7 +34,7 @@ class FlagType extends AbstractType
                     return implode(', ', $tagsArray);
                 },
                 function ($tagsString) {
-                    return explode(', ', $tagsString);
+                    return $tagsString ? explode(', ', $tagsString) : [];
                 }
             ));
     }

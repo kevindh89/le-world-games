@@ -7,6 +7,7 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    photo_directory: '%kernel.project_dir%/web/uploads/photos'
 
 framework:
     #esi: ~
@@ -39,6 +40,8 @@ twig:
     strict_variables: '%kernel.debug%'
     form_themes: ['bootstrap_4_layout.html.twig', 'form/lwg_theme.html.twig']
     exception_controller: GuessTheFlagBundle:Exception:show
+    globals:
+        photo_directory: '/uploads/photos/'
 
 # Doctrine Configuration
 doctrine:
