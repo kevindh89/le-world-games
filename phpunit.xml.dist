@@ -8,13 +8,14 @@
          bootstrap="vendor/autoload.php"
 >
     <php>
-        <ini name="error_reporting" value="-1" />
         <server name="KERNEL_CLASS" value="AppKernel" />
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak" />
     </php>
 
     <testsuites>
         <testsuite name="Project Test Suite">
             <directory>tests</directory>
+            <directory>src/GuessTheFlagBundle/Tests/</directory>
         </testsuite>
     </testsuites>
 
