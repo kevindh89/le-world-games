@@ -16,3 +16,4 @@
 /vendor/
 /web/bundles/
 /web/uploads/*
+.php_cs.cache
